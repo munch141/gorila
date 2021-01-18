@@ -1,10 +1,6 @@
 <template>
   <div class="products-grid">
-    <product-card></product-card>
-    <product-card></product-card>
-    <product-card></product-card>
-    <product-card></product-card>
-    <product-card></product-card>
+    <product-card v-for="product in products" :key="product.name" :product="product"></product-card>
   </div>
 </template>
 
@@ -13,6 +9,36 @@ import ProductCard from './ProductCard.vue';
 
 export default {
   components: { ProductCard },
+  data() {
+    return {
+      products: [
+        {
+          name: 'Producto 1',
+          price: 1.99,
+          img: 'rout/to/img.png',
+          description: 'Aquí va la descripción del producto, puede ser medio larga.',
+        },
+        {
+          name: 'Producto 2',
+          price: 13.99,
+          img: 'rout/to/img.png',
+          description: 'Aquí va la descripción del producto, puede ser medio larga.',
+        },
+        {
+          name: 'Producto 3',
+          price: 4.99,
+          img: 'rout/to/img.png',
+          description: 'Aquí va la descripción del producto, puede ser medio larga.',
+        },
+        {
+          name: 'Producto 4',
+          price: 56.99,
+          img: 'rout/to/img.png',
+          description: 'Aquí va la descripción del producto, puede ser medio larga.',
+        },
+      ],
+    };
+  },
 };
 </script>
 

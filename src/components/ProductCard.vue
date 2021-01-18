@@ -9,15 +9,10 @@
 
 <script>
 export default {
-  data() {
-    return {
-      product: {
-        name: 'Producto',
-        price: 3.99,
-        img: 'rout/to/img.png',
-        description: 'Aquí va la descripción del producto, puede ser medio larga.',
-      },
-    };
+  props: {
+    product: {
+      required: true,
+    },
   },
 };
 </script>
