@@ -6,37 +6,16 @@
 
 <script>
 import ProductCard from './ProductCard.vue';
+import api from '../services/apiService';
 
 export default {
   components: { ProductCard },
+  mounted() {
+    this.products = api.getProducts();
+  },
   data() {
     return {
-      products: [
-        {
-          name: 'Producto 1',
-          price: 1.99,
-          img: 'rout/to/img.png',
-          description: 'Aquí va la descripción del producto, puede ser medio larga.',
-        },
-        {
-          name: 'Producto 2',
-          price: 13.99,
-          img: 'rout/to/img.png',
-          description: 'Aquí va la descripción del producto, puede ser medio larga.',
-        },
-        {
-          name: 'Producto 3',
-          price: 4.99,
-          img: 'rout/to/img.png',
-          description: 'Aquí va la descripción del producto, puede ser medio larga.',
-        },
-        {
-          name: 'Producto 4',
-          price: 56.99,
-          img: 'rout/to/img.png',
-          description: 'Aquí va la descripción del producto, puede ser medio larga.',
-        },
-      ],
+      products: [],
     };
   },
 };

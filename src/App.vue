@@ -1,8 +1,6 @@
 <template>
-  <section class="bg-red-300 h-full p-6">
-    <div class="container">
-      <products-grid></products-grid>
-    </div>
+  <section class="container p-6">
+    <products-grid></products-grid>
   </section>
 </template>
 

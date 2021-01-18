@@ -1,9 +1,16 @@
 <template>
-  <div class="rounded shadow-lg w-64 p-4 bg-white">
-    <img :src="product.img" alt="" />
-    <h3 class="text-xl font-bold">{{ product.name }}</h3>
-    <p>{{ product.description }}</p>
-    <b>${{ product.price }}</b>
+  <div class="rounded shadow-lg w-64 bg-white">
+    <img
+      class="object-cover w-full rounded-t"
+      :src="product.imgUrls.default"
+      :alt="product.name"
+      :title="product.name"
+    />
+    <div class="p-4">
+      <h3 class="text-xl font-bold">{{ product.name }}</h3>
+      <p>{{ product.description }}</p>
+      <b>${{ product.price }}</b>
+    </div>
   </div>
 </template>
 
