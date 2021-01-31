@@ -4,11 +4,14 @@
   </section>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue';
 import ProductsGrid from './components/ProductsGrid.vue';
 
-export default {
-  components: { ProductsGrid },
+export default defineComponent({
   name: 'App',
-};
+  components: {
+    ProductsGrid,
+  },
+});
 </script>

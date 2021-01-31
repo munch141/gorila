@@ -29,7 +29,7 @@ export default {
       },
     ];
   },
-  addProduct(product) {
+  addProduct(product: any) {
     return { id: -1, ...product };
   },
 };

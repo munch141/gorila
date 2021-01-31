@@ -5,10 +5,11 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue';
 import ProductCard from './ProductCard.vue';
 import api from '../services/apiService';
 
-export default {
+export default defineComponent({
   components: { ProductCard },
   mounted() {
     this.products = api.getProducts();
@@ -18,7 +19,7 @@ export default {
       products: [],
     };
   },
-};
+});
 </script>
 
 <style scoped>
