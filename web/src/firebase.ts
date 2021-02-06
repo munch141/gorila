@@ -1,8 +1,8 @@
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 // import 'firebase/auth'
-// import 'firebase/firestore'
 
-const firebaseConfig = {
+const config = {
   apiKey: process.env.VUE_APP_FIREBASE_API_KEY,
   authDomain: process.env.VUE_APP_FIREBASE_AUTH_DOMAIN,
   projectId: process.env.VUE_APP_FIREBASE_PROJECT_ID,
@@ -12,10 +12,15 @@ const firebaseConfig = {
   measurementId: process.env.VUE_APP_FIREBASE_MEASUREMENT_ID,
 };
 
-firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(config);
 
 // utils
 const db = firebase.firestore();
+
+if (window.location.hostname === 'localhost') {
+  db.useEmulator('localhost', 8080);
+}
+
 // const auth = firebase.auth();
 
 // collection references
