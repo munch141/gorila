@@ -25,4 +25,4 @@ jobs:
           server: venenautica.com
           username: u578539920.ricardo
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: dist/
+          local-dir: ./dist/
