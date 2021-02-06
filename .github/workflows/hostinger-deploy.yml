@@ -8,7 +8,20 @@ on:
 
 jobs:
   web-deploy:
+    defaults:
+      run:
+        working-directory: web
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: ls
+      - run: npm install --production
+      - name: build
+        run: npm run build
+      - name: FTP Deploy
+        uses: SamKirkland/FTP-Deploy-Action@4.0.0
+        with:
+          server: ftp://venenautica.com
+          username: u578539920.ricardo
+          password: Jcjyg1wq-
+          local-dir: ./dist/
+          server-dir: public_html/
