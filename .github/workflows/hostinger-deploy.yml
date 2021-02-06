@@ -22,6 +22,6 @@ jobs:
       - name: 📂 Copy files
         uses: SamKirkland/FTP-Deploy-Action@4.0.0
         with:
-          server: ftp://venenautica.com
+          server: venenautica.com
           username: u578539920.ricardo
           password: ${{ secrets.FTP_PASSWORD }}
