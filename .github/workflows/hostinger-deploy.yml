@@ -13,15 +13,15 @@ jobs:
         working-directory: web
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - run: npm install
-      - name: build
-        run: npm run build
-      - run: ls
-      - name: FTP Deploy
+      - name: 🚚 Get code
+        uses: actions/checkout@v2
+      - name: 🔨 Build
+        run: |
+          npm install
+          npm run build
+      - name: 📂 Copy files
         uses: SamKirkland/FTP-Deploy-Action@4.0.0
         with:
           server: ftp://venenautica.com
           username: u578539920.ricardo
-          password: u9&JEl>HeC
-          local-dir: ./dist/
+          password: ${{ secrets.FTP_PASSWORD }}
