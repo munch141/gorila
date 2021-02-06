@@ -1,7 +1,15 @@
 import image from '../assets/dummy.png';
+import { productsCollection } from '../firebase';
 
 export default {
-  getProducts() {
+  async getProducts() {
+    const querySnapshot = await productsCollection.get();
+    const result = querySnapshot.docs.map((doc) => doc.data());
+
+    return result;
+  },
+
+  getProductsMock() {
     return [
       {
         name: 'Producto 1',
@@ -28,8 +36,5 @@ export default {
         description: 'Aquí va la descripción del producto, puede ser medio larga.',
       },
     ];
-  },
-  addProduct(product: any) {
-    return { id: -1, ...product };
   },
 };

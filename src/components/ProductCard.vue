@@ -2,7 +2,7 @@
   <div class="rounded shadow-lg w-64 bg-white">
     <img
       class="object-cover w-full rounded-t"
-      :src="product.imgUrls.default"
+      src="../assets/dummy.png"
       :alt="product.name"
       :title="product.name"
     />

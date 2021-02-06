@@ -1,5 +1,6 @@
 <template>
-  <div class="products-grid">
+  <p v-if="isLoading">Cargando...</p>
+  <div v-else class="products-grid">
     <product-card v-for="product in products" :key="product.name" :product="product"></product-card>
   </div>
 </template>
@@ -11,12 +12,14 @@ import api from '../services/apiService';
 
 export default defineComponent({
   components: { ProductCard },
-  mounted() {
-    this.products = api.getProducts();
+  async mounted() {
+    this.products = await api.getProducts();
+    this.isLoading = false;
   },
   data() {
     return {
       products: [],
+      isLoading: true,
     };
   },
 });
