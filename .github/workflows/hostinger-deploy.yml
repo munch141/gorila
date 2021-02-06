@@ -17,6 +17,7 @@ jobs:
       - run: npm install
       - name: build
         run: npm run build
+      - run: ls
       - name: FTP Deploy
         uses: SamKirkland/FTP-Deploy-Action@4.0.0
         with:
