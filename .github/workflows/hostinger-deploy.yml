@@ -15,10 +15,12 @@ jobs:
     steps:
       - name: 🚚 Get code
         uses: actions/checkout@v2
+
       - name: 🔨 Build
         run: |
           npm install
           npm run build
+
       - name: 📂 Copy files
         uses: SamKirkland/FTP-Deploy-Action@4.0.0
         with:
