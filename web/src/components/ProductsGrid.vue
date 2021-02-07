@@ -4,6 +4,10 @@
   </div>
   <div v-else class="products-grid">
     <product-card v-for="product in products" :key="product.name" :product="product"></product-card>
+
+    <div class="rounded shadow-lg w-64 bg-white">
+      <add-product-form></add-product-form>
+    </div>
   </div>
 </template>
 
@@ -11,9 +15,10 @@
 import { defineComponent } from 'vue';
 import ProductCard from './ProductCard.vue';
 import api from '../services/apiService';
+import AddProductForm from './AddProductForm.vue';
 
 export default defineComponent({
-  components: { ProductCard },
+  components: { ProductCard, AddProductForm },
   async mounted() {
     this.products = await api.getProducts();
     this.isLoading = false;
