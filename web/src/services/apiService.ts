@@ -3,8 +3,11 @@ import { productsCollection } from '../firebase';
 
 export default {
   async getProducts() {
-    const querySnapshot = await productsCollection.get();
-    const result = querySnapshot.docs.map((doc) => doc.data());
+    const querySnapshot = await productsCollection.get().catch((e) => {
+      console.error(e);
+      return null;
+    });
+    const result = querySnapshot?.docs.map((doc) => doc.data());
 
     return result;
   },

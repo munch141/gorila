@@ -1,5 +1,7 @@
 <template>
-  <p v-if="isLoading">Cargando...</p>
+  <div v-if="isLoading" class="w-full h-full absolute top-0 left-0">
+    <div class="flex w-full h-full items-center justify-center">Cargando...</div>
+  </div>
   <div v-else class="products-grid">
     <product-card v-for="product in products" :key="product.name" :product="product"></product-card>
   </div>
