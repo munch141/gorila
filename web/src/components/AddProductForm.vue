@@ -22,7 +22,7 @@
 
 <script lang="ts">
 import { Product } from '@/models/product.model';
-import dataService from '@/services/data.service';
+import productsService from '@/services/products.service';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
@@ -33,7 +33,7 @@ export default defineComponent({
   },
   methods: {
     async submitForm() {
-      const id = await dataService.addProduct(this.product);
+      const id = await productsService.add(this.product);
       this.$emit('product-added', id);
       this.product = {} as Product;
     },

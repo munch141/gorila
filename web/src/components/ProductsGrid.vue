@@ -14,13 +14,13 @@
 <script>
 import { defineComponent } from 'vue';
 import ProductCard from './ProductCard.vue';
-import dataService from '../services/data.service';
+import productsService from '../services/products.service';
 import AddProductForm from './AddProductForm.vue';
 
 export default defineComponent({
   components: { ProductCard, AddProductForm },
   async mounted() {
-    this.products = await dataService.getProducts();
+    this.products = await productsService.getAll();
     this.isLoading = false;
   },
   data() {
@@ -32,7 +32,7 @@ export default defineComponent({
   methods: {
     async addProduct(id) {
       console.log('id: ', id);
-      const product = await dataService.getProduct(id);
+      const product = await productsService.get(id);
       console.log('product: ', product);
       this.products.push(product);
     },
