@@ -1,29 +1,42 @@
 <template>
-  <form class="p-4">
+  <form class="p-4" @submit.prevent="submitForm">
     <h2 class="text-lg font-bold mb-2">Nuevo producto</h2>
     <div>
       <label for="name">Nombre</label>
-      <input type="text" id="name" />
+      <input type="text" id="name" v-model="product.name" />
     </div>
     <div>
       <label for="description">Descripción</label>
-      <input type="text" id="description" />
+      <input type="text" id="description" v-model="product.description" />
     </div>
     <div>
       <label for="price">Precio</label>
-      <input type="number" id="price" />
+      <input type="number" step=".01" id="price" v-model.number="product.price" />
     </div>
 
-    <button class="px-3 py-2 mt-2 rounded font-semibold bg-green-500 text-white" type="submit">
+    <button class="px-3 py-2 mt-4 rounded font-semibold bg-green-500 text-white" type="submit">
       Agregar
     </button>
   </form>
 </template>
 
-<script>
+<script lang="ts">
+import { Product } from '@/models/product.model';
+import dataService from '@/services/data.service';
 import { defineComponent } from 'vue';
 
-export default defineComponent({});
+export default defineComponent({
+  data() {
+    return {
+      product: {} as Product,
+    };
+  },
+  methods: {
+    async submitForm() {
+      await dataService.addProduct(this.product);
+    },
+  },
+});
 </script>
 
 <style scoped>

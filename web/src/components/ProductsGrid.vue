@@ -3,24 +3,24 @@
     <div class="flex w-full h-full items-center justify-center">Cargando...</div>
   </div>
   <div v-else class="products-grid">
-    <product-card v-for="product in products" :key="product.name" :product="product"></product-card>
-
     <div class="rounded shadow-lg w-64 bg-white">
       <add-product-form></add-product-form>
     </div>
+
+    <product-card v-for="product in products" :key="product.name" :product="product"></product-card>
   </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
 import ProductCard from './ProductCard.vue';
-import api from '../services/apiService';
+import dataService from '../services/data.service';
 import AddProductForm from './AddProductForm.vue';
 
 export default defineComponent({
   components: { ProductCard, AddProductForm },
   async mounted() {
-    this.products = await api.getProducts();
+    this.products = await dataService.getProducts();
     this.isLoading = false;
   },
   data() {
