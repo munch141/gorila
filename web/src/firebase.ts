@@ -1,5 +1,6 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
+import { productConverter } from './models/product.model';
 // import 'firebase/auth'
 
 const config = {
@@ -24,7 +25,7 @@ if (window.location.hostname === 'localhost') {
 // const auth = firebase.auth();
 
 // collection references
-const productsCollection = db.collection('products');
+const productsCollection = db.collection('products').withConverter(productConverter);
 
 // export utils/refs
 export { db, productsCollection };

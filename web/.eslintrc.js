@@ -17,6 +17,7 @@ module.exports = {
     'linebreak-style': 0,
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': 'error',
+    'lines-between-class-members': 'off',
   },
 
   extends: ['plugin:vue/vue3-essential', '@vue/airbnb', '@vue/typescript'],

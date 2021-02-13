@@ -33,7 +33,9 @@ export default defineComponent({
   },
   methods: {
     async submitForm() {
-      await dataService.addProduct(this.product);
+      const id = await dataService.addProduct(this.product);
+      this.$emit('product-added', id);
+      this.product = {} as Product;
     },
   },
 });

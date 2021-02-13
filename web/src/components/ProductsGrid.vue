@@ -4,7 +4,7 @@
   </div>
   <div v-else class="products-grid">
     <div class="rounded shadow-lg w-64 bg-white">
-      <add-product-form></add-product-form>
+      <add-product-form @product-added="addProduct"></add-product-form>
     </div>
 
     <product-card v-for="product in products" :key="product.name" :product="product"></product-card>
@@ -28,6 +28,14 @@ export default defineComponent({
       products: [],
       isLoading: true,
     };
+  },
+  methods: {
+    async addProduct(id) {
+      console.log('id: ', id);
+      const product = await dataService.getProduct(id);
+      console.log('product: ', product);
+      this.products.push(product);
+    },
   },
 });
 </script>
