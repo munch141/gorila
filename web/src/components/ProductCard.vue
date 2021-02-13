@@ -1,5 +1,25 @@
 <template>
-  <div class="rounded shadow-lg w-64 bg-white flex flex-col">
+  <div class="rounded shadow-lg w-64 bg-white flex flex-col relative group">
+    <button
+      class="
+        rounded-full
+        h-8
+        w-8
+        font-bold
+        bg-white
+        shadow-md
+        absolute
+        top-2
+        right-2
+        group-hover:opacity-100
+        items-center
+        justify-center
+        focus:outline-none
+        opacity-0
+        "
+    >
+      &#10005;
+    </button>
     <img
       class="object-cover w-full rounded-t"
       src="../assets/dummy.png"
@@ -7,9 +27,9 @@
       :title="product.name"
     />
     <div class="p-4 flex-grow flex flex-col">
-      <h3 class="text-xl font-bold">{{ product.name }}</h3>
-      <p>{{ product.description }}</p>
-      <b class="mt-auto">${{ product.price }}</b>
+      <h3 class="text-xl font-bold cursor-default">{{ product.name }}</h3>
+      <p class="cursor-default">{{ product.description }}</p>
+      <b class="mt-auto cursor-default">${{ product.price }}</b>
     </div>
   </div>
 </template>
