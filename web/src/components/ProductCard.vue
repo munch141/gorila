@@ -1,6 +1,7 @@
 <template>
   <div class="rounded shadow-lg w-64 bg-white flex flex-col relative group">
     <button
+      v-if="enableDelete"
       class="
         rounded-full
         h-8
@@ -23,7 +24,7 @@
     </button>
     <img
       class="object-cover w-full rounded-t"
-      src="../assets/dummy.png"
+      src="@/assets/dummy.png"
       :alt="product.name"
       :title="product.name"
     />
@@ -44,6 +45,10 @@ export default defineComponent({
     product: {
       type: Product,
       required: true,
+    },
+    enableDelete: {
+      type: Boolean,
+      default: false,
     },
   },
   methods: {
