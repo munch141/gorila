@@ -17,6 +17,7 @@
         focus:outline-none
         opacity-0
         "
+      @click="deleteProduct"
     >
       &#10005;
     </button>
@@ -35,12 +36,19 @@
 </template>
 
 <script>
+import { Product } from '@/models/product.model';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
   props: {
     product: {
+      type: Product,
       required: true,
+    },
+  },
+  methods: {
+    deleteProduct() {
+      this.$emit('product-deleted', this.product.id);
     },
   },
 });

@@ -7,12 +7,18 @@
       <add-product-form @product-added="addProduct"></add-product-form>
     </div>
 
-    <product-card v-for="product in products" :key="product.name" :product="product"></product-card>
+    <product-card
+      v-for="product in products"
+      :key="product.id"
+      :product="product"
+      @product-deleted="deleteProduct"
+    ></product-card>
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from 'vue';
+import { Product } from '@/models/product.model';
 import ProductCard from './ProductCard.vue';
 import productsService from '../services/products.service';
 import AddProductForm from './AddProductForm.vue';
@@ -20,21 +26,28 @@ import AddProductForm from './AddProductForm.vue';
 export default defineComponent({
   components: { ProductCard, AddProductForm },
   async mounted() {
-    this.products = await productsService.getAll();
+    const products = await productsService.getAll();
+    this.products = products || [];
     this.isLoading = false;
   },
   data() {
     return {
-      products: [],
+      products: [] as Product[],
       isLoading: true,
     };
   },
   methods: {
-    async addProduct(id) {
-      console.log('id: ', id);
+    async addProduct(id: string): Promise<void> {
       const product = await productsService.get(id);
-      console.log('product: ', product);
-      this.products.push(product);
+
+      if (product) this.products.push(product);
+    },
+
+    async deleteProduct(id: string) {
+      await productsService.delete(id).then(() => {
+        const i = this.products.findIndex((product) => product.id === id);
+        if (i >= 0) this.products.splice(i, 1);
+      });
     },
   },
 });

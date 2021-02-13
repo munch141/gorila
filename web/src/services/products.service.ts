@@ -13,15 +13,14 @@ export default {
   },
 
   async get(id: string): Promise<Product | undefined> {
-    const product = await productsCollection.doc(id).get();
-
-    return product.data();
+    return productsCollection
+      .doc(id)
+      .get()
+      .then((product) => product.data());
   },
 
   async add(product: Product): Promise<string> {
-    const productRef = await productsCollection.add(product);
-
-    return productRef.id;
+    return productsCollection.add(product).then((productRef) => productRef.id);
   },
 
   async delete(id: string): Promise<void> {
