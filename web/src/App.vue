@@ -1,5 +1,8 @@
 <template>
   <main>
+    <div v-if="isLoading" class="w-full h-full absolute top-0 left-0">
+      <div class="flex w-full h-full items-center justify-center">Cargando...</div>
+    </div>
     <router-view></router-view>
   </main>
 </template>
@@ -18,7 +21,7 @@ export default defineComponent({
   async mounted() {
     const timer = setTimeout(() => {
       this.isLoading = true;
-    }, 150);
+    }, 200);
     await this.initProducts();
     this.isLoading = false;
     clearTimeout(timer);

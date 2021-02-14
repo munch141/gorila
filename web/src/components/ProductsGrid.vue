@@ -1,8 +1,5 @@
 <template>
-  <div v-if="isLoading" class="w-full h-full absolute top-0 left-0">
-    <div class="flex w-full h-full items-center justify-center">Cargando...</div>
-  </div>
-  <div v-else class="products-grid">
+  <div class="products-grid">
     <product-card
       v-for="product in products"
       :key="product.id"
@@ -15,19 +12,14 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import { Product } from '@/models/product.model';
+import { IProduct } from '@/models/product.model';
 import ProductCard from '@/components/ProductCard.vue';
 
 export default defineComponent({
   components: { ProductCard },
   props: {
     products: {
-      type: Array as PropType<Array<Product> | undefined>,
-      required: true,
-    },
-    isLoading: {
-      type: Boolean,
-      default: true,
+      type: Array as PropType<Array<IProduct> | undefined>,
       required: true,
     },
     enableDelete: {

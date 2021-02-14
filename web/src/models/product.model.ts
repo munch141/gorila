@@ -1,27 +1,21 @@
-class Product {
+interface IProduct {
   id: string;
   name: string;
   description: string;
   price: number;
-  images: any[] | undefined;
+  images: string[];
 
-  constructor(
-    id: string,
-    name: string,
-    description: string,
-    price: number,
-    images: any | undefined,
-  ) {
-    this.id = id;
-    this.name = name;
-    this.description = description;
-    this.price = price;
-    this.images = images;
-  }
+  // constructor(id: string, name: string, description: string, price: number, images: string[]) {
+  //   this.id = id;
+  //   this.name = name;
+  //   this.description = description;
+  //   this.price = price;
+  //   this.images = images;
+  // }
 }
 
 const productConverter = {
-  toFirestore(product: Product): firebase.default.firestore.DocumentData {
+  toFirestore(product: IProduct): firebase.default.firestore.DocumentData {
     return {
       name: product.name,
       description: product.description,
@@ -32,11 +26,17 @@ const productConverter = {
   fromFirestore(
     snapshot: firebase.default.firestore.QueryDocumentSnapshot,
     options: firebase.default.firestore.SnapshotOptions,
-  ): Product {
+  ): IProduct {
     const data = snapshot.data(options);
 
-    return new Product(snapshot.id, data.name, data.description, data.price, data.images);
+    return {
+      id: snapshot.id,
+      name: data.name,
+      description: data.description,
+      price: data.price,
+      images: data.images ? data.images : [],
+    } as IProduct;
   },
-} as firebase.default.firestore.FirestoreDataConverter<Product>;
+} as firebase.default.firestore.FirestoreDataConverter<IProduct>;
 
-export { Product, productConverter };
+export { IProduct, productConverter };

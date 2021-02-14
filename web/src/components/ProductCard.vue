@@ -36,14 +36,14 @@
   </div>
 </template>
 
-<script>
-import { Product } from '@/models/product.model';
+<script lang="ts">
+import { IProduct } from '@/models/product.model';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
   props: {
     product: {
-      type: Product,
+      type: Object as () => IProduct,
       required: true,
     },
     enableDelete: {

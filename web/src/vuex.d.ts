@@ -1,12 +1,12 @@
 import { ComponentCustomProperties } from 'vue';
 import { Store } from 'vuex';
-import { Product } from '@/models/product.model';
+import { IProduct } from '@/models/product.model';
 
 declare module '@vue/runtime-core' {
   // declare your own store states
   interface State {
     isAuthenticated: boolean;
-    products: Product[];
+    products: IProduct[];
   }
 
   // provide typings for `this.$store`

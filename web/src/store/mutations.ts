@@ -1,4 +1,4 @@
-import { Product } from '@/models/product.model';
+import { IProduct } from '@/models/product.model';
 import { State } from 'vue';
 
 export interface IIsAuthenticatedPayload {
@@ -6,7 +6,7 @@ export interface IIsAuthenticatedPayload {
 }
 
 export interface IAddProductPayload {
-  product: Product;
+  product: IProduct;
 }
 
 export interface IRemoveProductPayload {
@@ -14,14 +14,14 @@ export interface IRemoveProductPayload {
 }
 
 export default {
-  setAuth(state: State, payload: IIsAuthenticatedPayload) {
-    state.isAuthenticated = payload.isAuthenticated;
+  setAuth(state: State, { isAuthenticated }: IIsAuthenticatedPayload) {
+    state.isAuthenticated = isAuthenticated;
   },
-  addProduct(state: State, payload: IAddProductPayload) {
-    state.products.push(payload.product);
+  addProduct(state: State, { product }: IAddProductPayload) {
+    state.products.push(product);
   },
-  removeProduct(state: State, payload: IRemoveProductPayload) {
-    const i = state.products.findIndex((product: Product) => product.id === payload.productId);
+  removeProduct(state: State, { productId }: IRemoveProductPayload) {
+    const i = state.products.findIndex((product: IProduct) => product.id === productId);
     if (i >= 0) state.products.splice(i, 1);
   },
 };

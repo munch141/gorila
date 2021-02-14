@@ -1,7 +1,7 @@
 <template>
   <router-link to="/gorila">gorila</router-link>
   <section class="container p-6">
-    <products-grid :products="products" :isLoading="isLoading"></products-grid>
+    <products-grid :products="products"></products-grid>
   </section>
 </template>
 
@@ -12,12 +12,6 @@ import { mapGetters } from 'vuex';
 
 export default defineComponent({
   components: { ProductsGrid },
-  props: {
-    isLoading: {
-      type: Boolean,
-      required: true,
-    },
-  },
   computed: {
     ...mapGetters(['products']),
   },
