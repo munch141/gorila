@@ -18,7 +18,7 @@ export default {
     state.isAuthenticated = isAuthenticated;
   },
   addProduct(state: State, { product }: IAddProductPayload) {
-    state.products.push(product);
+    state.products.unshift(product);
   },
   removeProduct(state: State, { productId }: IRemoveProductPayload) {
     const i = state.products.findIndex((product: IProduct) => product.id === productId);
