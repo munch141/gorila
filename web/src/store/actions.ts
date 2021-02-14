@@ -22,11 +22,10 @@ export default {
   },
   async addProduct(context: ActionContext<State, State>, { product }: IAddProductPayload) {
     const newProduct = await productsService.add(product);
-    console.log('new prod: ', newProduct);
     context.commit('addProduct', { product: newProduct } as IAddProductPayload);
   },
   async deleteProduct(context: ActionContext<State, State>, { productId }: IRemoveProductPayload) {
     await productsService.delete(productId);
-    context.commit('addProduct', { productId } as IRemoveProductPayload);
+    context.commit('removeProduct', { productId } as IRemoveProductPayload);
   },
 };

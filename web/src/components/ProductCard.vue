@@ -18,7 +18,7 @@
         focus:outline-none
         opacity-0
         "
-      @click="deleteProduct"
+      @click="deleteProduct({ productId: product.id })"
     >
       &#10005;
     </button>
@@ -39,6 +39,7 @@
 <script lang="ts">
 import { IProduct } from '@/models/product.model';
 import { defineComponent } from 'vue';
+import { mapActions } from 'vuex';
 
 export default defineComponent({
   props: {
@@ -52,9 +53,7 @@ export default defineComponent({
     },
   },
   methods: {
-    deleteProduct() {
-      this.$emit('product-deleted', this.product.id);
-    },
+    ...mapActions(['deleteProduct']),
   },
 });
 </script>
