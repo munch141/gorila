@@ -2,8 +2,8 @@ import { createApp } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
 import './registerServiceWorker';
 import './main.css';
-import HomePage from '@/components/HomePage.vue';
-import GorilaPage from '@/components/gorila/GorilaPage.vue';
+import HomePage from '@/pages/HomePage.vue';
+import GorilaPage from '@/pages/GorilaPage.vue';
 import App from './App.vue';
 
 const router = createRouter({

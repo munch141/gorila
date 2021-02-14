@@ -16,7 +16,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
 import { Product } from '@/models/product.model';
-import ProductCard from './ProductCard.vue';
+import ProductCard from '@/components/ProductCard.vue';
 
 export default defineComponent({
   components: { ProductCard },

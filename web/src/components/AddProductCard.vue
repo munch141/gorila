@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import AddProductForm from './AddProductForm.vue';
+import AddProductForm from '@/components/AddProductForm.vue';
 
 export default defineComponent({
   components: { AddProductForm },

@@ -1,16 +1,7 @@
 <template>
+  <router-link to="/gorila">gorila</router-link>
   <section class="container p-6">
-    <add-product-card
-      @product-added="addProduct"
-      @product-deleted="deleteProduct"
-    ></add-product-card>
-
-    <products-grid
-      :enableDelete="true"
-      :products="products"
-      :isLoading="isLoading"
-      @product-deleted="deleteProduct"
-    ></products-grid>
+    <products-grid :products="products" :isLoading="isLoading"></products-grid>
   </section>
 </template>
 
@@ -19,19 +10,22 @@ import { defineComponent } from 'vue';
 import { Product } from '@/models/product.model';
 import productsService from '@/services/products.service';
 import ProductsGrid from '@/components/ProductsGrid.vue';
-import AddProductCard from './AddProductCard.vue';
 
 export default defineComponent({
-  components: { ProductsGrid, AddProductCard },
+  components: { ProductsGrid },
   async mounted() {
+    const timer = setTimeout(() => {
+      this.isLoading = true;
+    }, 150);
     const products = await productsService.getAll();
     this.products = products || [];
     this.isLoading = false;
+    clearTimeout(timer);
   },
   data() {
     return {
       products: [] as Product[],
-      isLoading: true,
+      isLoading: false,
     };
   },
   methods: {
