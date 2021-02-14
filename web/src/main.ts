@@ -5,6 +5,7 @@ import './main.css';
 import HomePage from '@/pages/HomePage.vue';
 import GorilaPage from '@/pages/GorilaPage.vue';
 import App from './App.vue';
+import store from './store';
 
 const router = createRouter({
   history: createWebHistory(),
@@ -16,5 +17,6 @@ const router = createRouter({
 
 const app = createApp(App);
 
+app.use(store);
 app.use(router);
 app.mount('#app');

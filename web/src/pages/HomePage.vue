@@ -7,40 +7,19 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { Product } from '@/models/product.model';
-import productsService from '@/services/products.service';
 import ProductsGrid from '@/components/ProductsGrid.vue';
+import { mapGetters } from 'vuex';
 
 export default defineComponent({
   components: { ProductsGrid },
-  async mounted() {
-    const timer = setTimeout(() => {
-      this.isLoading = true;
-    }, 150);
-    const products = await productsService.getAll();
-    this.products = products || [];
-    this.isLoading = false;
-    clearTimeout(timer);
-  },
-  data() {
-    return {
-      products: [] as Product[],
-      isLoading: false,
-    };
-  },
-  methods: {
-    async addProduct(id: string): Promise<void> {
-      const product = await productsService.get(id);
-
-      if (product) this.products.unshift(product);
+  props: {
+    isLoading: {
+      type: Boolean,
+      required: true,
     },
-
-    async deleteProduct(id: string) {
-      await productsService.delete(id).then(() => {
-        const i = this.products.findIndex((product) => product.id === id);
-        if (i >= 0) this.products.splice(i, 1);
-      });
-    },
+  },
+  computed: {
+    ...mapGetters(['products']),
   },
 });
 </script>
