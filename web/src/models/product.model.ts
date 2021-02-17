@@ -1,4 +1,4 @@
-interface IProduct {
+interface Product {
   id: string;
   name: string;
   description: string;
@@ -15,7 +15,7 @@ interface IProduct {
 }
 
 const productConverter = {
-  toFirestore(product: IProduct): firebase.default.firestore.DocumentData {
+  toFirestore(product: Product): firebase.default.firestore.DocumentData {
     return {
       name: product.name,
       description: product.description,
@@ -26,7 +26,7 @@ const productConverter = {
   fromFirestore(
     snapshot: firebase.default.firestore.QueryDocumentSnapshot,
     options: firebase.default.firestore.SnapshotOptions,
-  ): IProduct {
+  ): Product {
     const data = snapshot.data(options);
 
     return {
@@ -35,8 +35,8 @@ const productConverter = {
       description: data.description,
       price: data.price,
       images: data.images ? data.images : [],
-    } as IProduct;
+    } as Product;
   },
-} as firebase.default.firestore.FirestoreDataConverter<IProduct>;
+} as firebase.default.firestore.FirestoreDataConverter<Product>;
 
-export { IProduct, productConverter };
+export { Product, productConverter };

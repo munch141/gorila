@@ -1,19 +1,12 @@
 import { createStore } from 'vuex';
-import { State } from 'vue';
-import rootMutations from './mutations';
-import rootActions from './actions';
-import rootGetters from './getters';
+import authModule from './modules/auth';
+import productsModule from './modules/products';
 
 const store = createStore({
-  state() {
-    return {
-      isAuthenticated: false,
-      products: [],
-    } as State;
+  modules: {
+    auth: authModule,
+    products: productsModule,
   },
-  mutations: rootMutations,
-  actions: rootActions,
-  getters: rootGetters,
 });
 
 export default store;

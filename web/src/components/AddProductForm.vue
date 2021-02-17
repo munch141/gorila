@@ -21,22 +21,22 @@
 </template>
 
 <script lang="ts">
-import { IProduct } from '@/models/product.model';
-import { IAddProductPayload } from '@/store/mutations';
+import { Product } from '@/models/product.model';
+import { AddProductPayload } from '@/store/modules/products/mutations';
 import { defineComponent } from 'vue';
 import { mapActions } from 'vuex';
 
 export default defineComponent({
   data() {
     return {
-      product: {} as IProduct,
+      product: {} as Product,
     };
   },
   methods: {
     ...mapActions(['addProduct']),
     async submitForm() {
-      await this.addProduct({ product: this.product } as IAddProductPayload);
-      this.product = {} as IProduct;
+      await this.addProduct({ product: this.product } as AddProductPayload);
+      this.product = {} as Product;
     },
   },
 });

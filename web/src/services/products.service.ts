@@ -1,8 +1,8 @@
-import { IProduct } from '@/models/product.model';
+import { Product } from '@/models/product.model';
 import { productsCollection } from '../firebase';
 
 export default {
-  async getAll(): Promise<IProduct[] | undefined> {
+  async getAll(): Promise<Product[] | undefined> {
     const querySnapshot = await productsCollection.get().catch((e) => {
       console.error(e);
 
@@ -12,17 +12,17 @@ export default {
     return querySnapshot?.docs.map((doc) => doc.data());
   },
 
-  async get(id: string): Promise<IProduct | undefined> {
+  async get(id: string): Promise<Product | undefined> {
     return productsCollection
       .doc(id)
       .get()
       .then((product) => product.data());
   },
 
-  async add(product: IProduct): Promise<IProduct> {
+  async add(product: Product): Promise<Product> {
     return productsCollection
       .add(product)
-      .then((productRef) => ({ ...product, id: productRef.id } as IProduct));
+      .then((productRef) => ({ ...product, id: productRef.id } as Product));
   },
 
   async delete(id: string): Promise<void> {
