@@ -14,9 +14,7 @@
       <input type="number" step=".01" id="price" v-model.number="product.price" />
     </div>
 
-    <button class="px-3 py-2 mt-4 rounded font-semibold bg-green-500 text-white" type="submit">
-      Agregar
-    </button>
+    <button class="btn btn-primary" type="submit">Agregar</button>
   </form>
 </template>
 
@@ -43,17 +41,6 @@ export default defineComponent({
 </script>
 
 <style scoped>
-input {
-  @apply px-2
-    py-1
-    leading-5
-    border
-    rounded
-    focus:outline-none
-    focus:ring
-    focus:border-blue-400;
-}
-
 div {
   @apply flex flex-col mb-1;
 }

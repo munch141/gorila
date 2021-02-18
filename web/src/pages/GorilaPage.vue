@@ -1,10 +1,13 @@
 <template>
-  <router-link to="/">home</router-link>
+  <button class="btn">
+    <router-link class="btn" to="/">Home</router-link>
+  </button>
+  <LogoutButton class="btn">Cerrar sesión</LogoutButton>
   <section class="container p-6">
     <div class="rounded shadow-lg w-64 bg-white">
-      <add-product-form></add-product-form>
+      <AddProductForm></AddProductForm>
     </div>
-    <products-grid :enableDelete="true"></products-grid>
+    <ProductsGrid :enableDelete="true"></ProductsGrid>
   </section>
 </template>
 
@@ -12,8 +15,9 @@
 import { defineComponent } from 'vue';
 import ProductsGrid from '@/components/ProductsGrid.vue';
 import AddProductForm from '@/components/AddProductForm.vue';
+import LogoutButton from '@/components/LogoutButton.vue';
 
 export default defineComponent({
-  components: { ProductsGrid, AddProductForm },
+  components: { ProductsGrid, AddProductForm, LogoutButton },
 });
 </script>

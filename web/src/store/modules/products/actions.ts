@@ -7,18 +7,24 @@ import { ProductsState } from './state';
 
 export default {
   async initProducts(context: ActionContext<ProductsState, State>) {
-    const products = await productsService.getAll();
+    if (!context.state.productsInitialized) {
+      const products = await productsService.getAll();
 
-    if (products) {
-      products.forEach((product: Product) => {
-        context.commit('addProduct', { product } as AddProductPayload);
-      });
+      if (products) {
+        products.forEach((product: Product) => {
+          context.commit('addProduct', { product } as AddProductPayload);
+        });
+      }
+
+      context.commit('markProductsAsInitialized');
     }
   },
+
   async addProduct(context: ActionContext<ProductsState, State>, { product }: AddProductPayload) {
     const newProduct = await productsService.add(product);
     context.commit('addProduct', { product: newProduct } as AddProductPayload);
   },
+
   async deleteProduct(
     context: ActionContext<ProductsState, State>,
     { productId }: RemoveProductPayload,

@@ -1,7 +1,9 @@
 <template>
-  <router-link to="/gorila">gorila</router-link>
+  <button class="btn">
+    <router-link to="/gorila">Gorila</router-link>
+  </button>
   <section class="container p-6">
-    <products-grid></products-grid>
+    <ProductsGrid></ProductsGrid>
   </section>
 </template>
 
