@@ -1,4 +1,5 @@
 <template>
+  <h1>{{ currentUser }}</h1>
   <button class="btn">
     <router-link class="btn" to="/">Home</router-link>
   </button>
@@ -16,8 +17,12 @@ import { defineComponent } from 'vue';
 import ProductsGrid from '@/components/ProductsGrid.vue';
 import AddProductForm from '@/components/AddProductForm.vue';
 import LogoutButton from '@/components/LogoutButton.vue';
+import { mapGetters } from 'vuex';
 
 export default defineComponent({
   components: { ProductsGrid, AddProductForm, LogoutButton },
+  computed: {
+    ...mapGetters(['currentUser']),
+  },
 });
 </script>

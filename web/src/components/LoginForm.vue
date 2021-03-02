@@ -2,11 +2,11 @@
   <form class="p-4" @submit.prevent="submitForm">
     <div>
       <label for="description">Contraseña</label>
-      <input type="password" id="password" v-model="password" />
+      <input type="password" required id="password" v-model="password" />
     </div>
 
     <button class="btn btn-primary" type="submit">
-      Entrar
+      Iniciar sesión
     </button>
   </form>
 </template>
@@ -17,11 +17,13 @@ import { mapActions } from 'vuex';
 
 export default defineComponent({
   data() {
-    return { password: String };
+    return { password: '' };
   },
   methods: {
     ...mapActions(['login']),
     async submitForm() {
+      console.log('password: ', this.password);
+
       await this.login();
       this.$router.replace('/gorila');
     },
