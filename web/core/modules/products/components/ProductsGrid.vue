@@ -37,8 +37,8 @@ export default defineComponent({
 
     await this.initProducts();
 
-    this.isLoading = false;
     clearTimeout(timer);
+    this.isLoading = false;
   },
   methods: {
     ...mapActions(['initProducts']),

@@ -23,4 +23,7 @@ module.exports = {
   devServer: {
     port: isMainApp ? 8081 : 8082,
   },
+  configureWebpack: {
+    devtool: 'source-map',
+  },
 };

@@ -17,15 +17,13 @@ firebase.initializeApp(config);
 
 // utils
 const db = firebase.firestore();
-const auth = firebase.auth();
 
 if (window.location.hostname === 'localhost') {
   db.useEmulator('localhost', 8080);
-  auth.useEmulator('http://localhost:9099');
 }
 
 // collection references
 const productsCollection = db.collection('products').withConverter(productConverter);
 
 // export utils/refs
-export { auth, db, productsCollection };
+export { db, productsCollection };

@@ -1,15 +1,14 @@
 import { User } from '@core/modules/auth/models/user';
 import { AuthState } from './state';
 
-export interface IsAuthenticatedPayload {
-  isAuthenticated: boolean;
-}
-
 export default {
-  setAuth(state: AuthState, { isAuthenticated }: IsAuthenticatedPayload) {
+  setIsAuthenticated(state: AuthState, isAuthenticated: boolean) {
     state.isAuthenticated = isAuthenticated;
   },
-  setCurrentUser(state: AuthState, user: User | null) {
-    state.currentUser = user;
+  setUser(state: AuthState, user: User | null) {
+    state.user = user;
+  },
+  setDidAutoLogout(state: AuthState, didAutoLogout: boolean) {
+    state.didAutoLogout = didAutoLogout;
   },
 };

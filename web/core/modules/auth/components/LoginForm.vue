@@ -22,10 +22,8 @@ export default defineComponent({
   methods: {
     ...mapActions(['login']),
     async submitForm() {
-      console.log('password: ', this.password);
-
-      await this.login();
-      this.$router.replace('/');
+      if (await this.login(this.password)) this.$router.replace('/');
+      else console.error('Authentication failed!');
     },
   },
 });

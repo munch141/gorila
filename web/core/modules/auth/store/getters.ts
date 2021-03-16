@@ -4,7 +4,10 @@ export default {
   isAuthenticated(state: AuthState) {
     return state.isAuthenticated;
   },
-  currentUser(state: AuthState) {
-    return state.currentUser;
+  user(state: AuthState) {
+    return state.user;
+  },
+  didAutoLogout(state: AuthState) {
+    return state.didAutoLogout;
   },
 };

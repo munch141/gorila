@@ -1,17 +1,38 @@
-import { User } from '@core/modules/auth/models/user';
-import { auth } from '@core/firebase';
+import { AuthInfo } from '../models/authInfo';
+
+const isDevEnvironment = window.location.hostname === 'localhost';
+const apiKey = process.env.VUE_APP_FIREBASE_API_KEY;
+const apiUrl = isDevEnvironment
+  ? 'http://localhost:9099/identitytoolkit.googleapis.com/v1'
+  : `${process.env.VUE_APP_FIREBASE_AUTH_DOMAIN}/v1`;
 
 export default {
-  async login(): Promise<User | null> {
-    const userCredential = await auth.signInWithEmailAndPassword('mail@mail.com', 'Ekprmc9293-');
-    const { user } = userCredential;
+  async login(password: string): Promise<AuthInfo | null> {
+    const response = await fetch(`${apiUrl}/accounts:signInWithPassword?key=${apiKey}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: 'mail@mail.com',
+        password,
+        returnSecureToken: true,
+      }),
+    });
 
-    if (user) {
+    if (response.ok) {
+      const authInfo = await response.json();
+
       return {
-        name: user.displayName,
-        email: user.email,
-        photoUrl: user.photoURL,
-      } as User;
+        token: authInfo.idToken,
+        tokenExpiresIn: authInfo.expiresIn * 1000,
+        user: {
+          id: authInfo.localId,
+          name: authInfo.displayName,
+          email: authInfo.email,
+          photoUrl: authInfo.photoURL,
+        },
+      };
     }
 
     return null;

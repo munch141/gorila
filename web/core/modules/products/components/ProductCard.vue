@@ -37,14 +37,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, PropType } from 'vue';
 import { mapActions } from 'vuex';
 import { Product } from '../models/product';
 
 export default defineComponent({
   props: {
     product: {
-      type: Object as () => Product,
+      type: Object as PropType<Product>,
       required: true,
     },
     enableDelete: {

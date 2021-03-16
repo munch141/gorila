@@ -1,5 +1,4 @@
 <template>
-  <h1>{{ currentUser }}</h1>
   <LogoutButton class="btn">Cerrar sesión</LogoutButton>
   <section class="container p-6">
     <div class="rounded shadow-lg w-64 bg-white">
@@ -19,7 +18,7 @@ import LogoutButton from '@auth/components/LogoutButton.vue';
 export default defineComponent({
   components: { ProductsGrid, AddProductForm, LogoutButton },
   computed: {
-    ...mapGetters(['currentUser']),
+    ...mapGetters(['user']),
   },
 });
 </script>
