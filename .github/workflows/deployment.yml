@@ -43,7 +43,7 @@ jobs:
     name: Deploy Firebase app
     defaults:
       run:
-        working-directory: web
+        working-directory: firebase
     runs-on: ubuntu-latest
     steps:
       - name: 🔥 Deploy to Firebase
