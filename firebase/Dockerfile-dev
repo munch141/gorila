@@ -1,0 +1,7 @@
+FROM andreysenov/firebase-tools
+
+COPY . .
+
+EXPOSE 4000 9099 8080
+
+CMD ["firebase", "emulators:start"]

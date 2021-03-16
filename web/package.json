@@ -3,9 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "serve:main": "cross-env APP_TYPE=\"main-app\" vue-cli-service serve main-app/src/main.ts",
+    "build:main": "cross-env APP_TYPE=\"main-app\" vue-cli-service build main-app/src/main.ts",
+    "lint:main": "cross-env APP_TYPE=\"main-app\" vue-cli-service lint main-app/src/main.ts",
+    "serve:gorila": "cross-env APP_TYPE=\"gorila-app\" vue-cli-service serve gorila-app/src/main.ts",
+    "build:gorila": "cross-env APP_TYPE=\"gorila-app\" vue-cli-service build gorila-app/src/main.ts",
+    "lint:gorila": "cross-env APP_TYPE=\"gorila-app\" vue-cli-service lint gorila-app/src/main.ts"
   },
   "dependencies": {
     "@tailwindcss/postcss7-compat": "^2.0.2",
@@ -15,7 +18,9 @@
     "postcss": "^7.0.35",
     "register-service-worker": "^1.7.1",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.2",
-    "vue": "^3.0.0"
+    "vue": "^3.0.0",
+    "vue-router": "^4.0.3",
+    "vuex": "^4.0.0"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^2.33.0",
@@ -29,6 +34,7 @@
     "@vue/eslint-config-airbnb": "^5.0.2",
     "@vue/eslint-config-typescript": "^5.0.2",
     "babel-eslint": "^10.1.0",
+    "cross-env": "^7.0.3",
     "eslint": "^6.7.2",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-vue": "^7.0.0-0",

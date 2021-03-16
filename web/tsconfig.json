@@ -12,29 +12,23 @@
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "baseUrl": ".",
-    "types": [
-      "webpack-env"
-    ],
+    "types": ["webpack-env"],
     "paths": {
-      "@/*": [
-        "src/*"
-      ]
+      "@core/*": ["core/*"],
+      "@products/*": ["core/modules/products/*"],
+      "@auth/*": ["core/modules/auth/*"]
     },
-    "lib": [
-      "esnext",
-      "dom",
-      "dom.iterable",
-      "scripthost"
-    ]
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },
   "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue",
-    "tests/**/*.ts",
-    "tests/**/*.tsx"
+    "core/**/*.ts",
+    "core/**/*.vue",
+    "main-app/src/**/*.ts",
+    "main-app/src/**/*.vue",
+    "main-app/tests/**/*.ts",
+    "gorila-app/src/**/*.ts",
+    "gorila-app/src/**/*.vue",
+    "gorila-app/tests/**/*.ts"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }

@@ -1,0 +1,58 @@
+name: Deploy to Hostinger and Firebase
+
+on:
+  push:
+    branches: [dev]
+  pull_request:
+    branches: [dev]
+
+jobs:
+  deploy-web-apps:
+    name: Build and deploy web apps
+    defaults:
+      run:
+        working-directory: web
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Get code
+        uses: actions/checkout@v2
+
+      - name: 🔨 Build
+        run: |
+          npm install
+          npm run build:main
+          npm run build:gorila
+
+      - name: 📂 Copy main-app files
+        uses: SamKirkland/FTP-Deploy-Action@4.0.0
+        with:
+          server: venenautica.com
+          username: u578539920.main.app
+          password: ${{ secrets.FTP_MAIN_PASSWORD }}
+          local-dir: ./web/main-app/dist/
+
+      - name: 📂 Copy gorila-app files
+        uses: SamKirkland/FTP-Deploy-Action@4.0.0
+        with:
+          server: venenautica.com
+          username: u578539920.gorila.app
+          password: ${{ secrets.FTP_GORILA_PASSWORD }}
+          local-dir: ./web/gorila-app/dist/
+
+  deploy-firebase-app:
+    name: Deploy Firebase app
+    defaults:
+      run:
+        working-directory: firebase
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Get code
+        uses: actions/checkout@v2
+
+      - name: 🔥 Deploy to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --except functions
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          PROJECT_PATH: './firebase'

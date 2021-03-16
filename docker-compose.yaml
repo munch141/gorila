@@ -1,0 +1,44 @@
+version: '3'
+services:
+  # firebase-ui:
+  #   build:
+  #     context: ./firebase
+  #     dockerfile: ./Dockerfile-dev
+  #   ports:
+  #     - '4000:4000'
+
+  firebase:
+    build:
+      context: ./firebase
+      dockerfile: ./Dockerfile-dev
+    ports:
+      - '4000:4000'
+      - '9099:9099'
+      - '8080:8080'
+    command: firebase emulators:start --only auth,firestore
+
+  main-app:
+    build:
+      context: ./web
+      dockerfile: ./main-app/Dockerfile-dev
+    ports:
+      - '8081:8081'
+    container_name: main-app
+    volumes:
+      - ./web:/app
+      - /app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+
+  gorila-app:
+    build:
+      context: ./web
+      dockerfile: ./gorila-app/Dockerfile-dev
+    ports:
+      - '8082:8082'
+    container_name: gorila-app
+    volumes:
+      - ./web:/app
+      - /app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true

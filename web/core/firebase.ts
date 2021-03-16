@@ -1,6 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
-// import 'firebase/auth'
+import 'firebase/auth';
+import { productConverter } from './modules/products/models/product';
 
 const config = {
   apiKey: process.env.VUE_APP_FIREBASE_API_KEY,
@@ -21,10 +22,8 @@ if (window.location.hostname === 'localhost') {
   db.useEmulator('localhost', 8080);
 }
 
-// const auth = firebase.auth();
-
 // collection references
-const productsCollection = db.collection('products');
+const productsCollection = db.collection('products').withConverter(productConverter);
 
 // export utils/refs
 export { db, productsCollection };
