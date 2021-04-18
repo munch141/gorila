@@ -46,4 +46,4 @@ jobs:
           args: deploy --except functions
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-          PROJECT_PATH: './firebase'
+          PROJECT_PATH: './back/firebase'
