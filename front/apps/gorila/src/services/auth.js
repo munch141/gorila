@@ -1,38 +1,23 @@
-const isDevEnvironment = window.location.hostname === 'localhost';
-const apiKey = process.env.VUE_APP_FIREBASE_API_KEY;
-const apiUrl = isDevEnvironment
-  ? 'http://localhost:9099/identitytoolkit.googleapis.com/v1'
-  : `${process.env.VUE_APP_FIREBASE_AUTH_DOMAIN}/v1`;
+import { auth } from '../firebase';
+
+const email = 'mail@mail.com';
 
 export default {
   async login(password) {
-    const response = await fetch(`${apiUrl}/accounts:signInWithPassword?key=${apiKey}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: 'mail@mail.com',
-        password,
-        returnSecureToken: true,
-      }),
-    });
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then((userCredential) => userCredential.user)
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+      });
 
-    if (response.ok) {
-      const authInfo = await response.json();
+    return userCredential.user.toJSON();
+  },
 
-      return {
-        token: authInfo.idToken,
-        tokenExpiresIn: authInfo.expiresIn * 1000,
-        user: {
-          id: authInfo.localId,
-          name: authInfo.displayName,
-          email: authInfo.email,
-          photoUrl: authInfo.photoURL,
-        },
-      };
-    }
+  async autoLogin(refreshToken) {
+    const userCredential = await auth.signInWithCustomToken(email, password);
 
-    return null;
+    return userCredential.user.toJSON();
   },
 };

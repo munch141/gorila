@@ -11,13 +11,11 @@ import { mapGetters } from 'vuex';
 export default defineComponent({
   name: 'App',
   computed: {
-    ...mapGetters(['didAutoLogout']),
+    ...mapGetters(['user']),
   },
   watch: {
-    didAutoLogout(currentValue, oldValue) {
-      if (currentValue && currentValue !== oldValue) {
-        this.$router.replace('/login');
-      }
+    user(currentValue) {
+      if (!currentValue) this.$router.replace('/login');
     },
   },
 });

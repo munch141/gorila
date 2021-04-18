@@ -1,4 +1,6 @@
-import { productsCollection } from '../firebase';
+import { db } from '../firebase';
+
+const productsCollection = db.collection('products');
 
 export default {
   async getAll() {

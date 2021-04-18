@@ -26,8 +26,8 @@ jobs:
         uses: SamKirkland/FTP-Deploy-Action@4.0.0
         with:
           server: venenautica.com
-          username: u578539920.main.app
-          password: ${{ secrets.FTP_MAIN_PASSWORD }}
+          username: u578539920.gorila-dev
+          password: ${{ secrets.FTP_GORILA_DEV_PASSWORD }}
           local-dir: ./front/apps/gorila/dist/
 
   deploy-firebase-app:

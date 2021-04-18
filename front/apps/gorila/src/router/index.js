@@ -12,9 +12,9 @@ const router = createRouter({
 });
 
 router.beforeEach((to, _, next) => {
-  if (to.meta.requiresAuth && !store.getters.isAuthenticated) {
+  if (to.meta.requiresAuth && !store.getters.user) {
     next('/login');
-  } else if (to.path === '/login' && store.getters.isAuthenticated) {
+  } else if (to.path === '/login' && store.getters.user) {
     next('/');
   } else {
     next();

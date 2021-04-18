@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   data() {
@@ -19,8 +19,15 @@ export default {
   methods: {
     ...mapActions(['login']),
     async submitForm() {
-      if (await this.login(this.password)) this.$router.replace('/');
+      await this.login(this.password);
+
+      if (this.user) {
+        this.$router.replace('/');
+      }
     },
+  },
+  computed: {
+    ...mapGetters(['user']),
   },
 };
 </script>
