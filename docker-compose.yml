@@ -1,0 +1,46 @@
+version: '3.4'
+
+services:
+  gorila.api:
+    image: ${DOCKER_REGISTRY-}gorilaapi
+    build:
+      context: .
+      dockerfile: src/Gorila.API/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - "UseInMemoryDatabase=false"
+      - "ConnectionStrings__DefaultConnection=User ID = postgres;Password=postgres;Server=db;Port=5432;Database=gorilaDb;Integrated Security=true;Pooling=true"
+    ports:
+      - "80"
+      - "443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    depends_on:
+      - db
+    restart: on-failure
+
+  db:
+    image: "postgres"
+    environment:
+      - "POSTGRES_PASSWORD=postgres"
+      - "POSTGRES_USER=postgres"
+      - "POSTGRES_DB=gorilaDb"
+    volumes:
+        - ./pgdata:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+  
+  gorila.ui:
+    image: gorilaui
+    build:
+      context: .
+      dockerfile: src/Gorila.UI/Dockerfile
+    ports:
+      - '8081:8081'
+    volumes:
+      - ./src/Gorila.UI:/app
+      - /app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
