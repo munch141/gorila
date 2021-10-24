@@ -1,0 +1,31 @@
+name: Deploy frontend to Hostinger
+
+on:
+  push:
+    branches: [dev]
+  pull_request:
+    branches: [dev]
+
+jobs:
+  deploy-frontend:
+    name: Build and deploy
+    defaults:
+      run:
+        working-directory: src/Gorila.UI
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Get code
+        uses: actions/checkout@v2
+
+      - name: 🔨 Build
+        run: |
+          npm install
+          npm run build
+
+      - name: 📂 Copy files through FTP
+        uses: SamKirkland/FTP-Deploy-Action@4.0.0
+        with:
+          server: ${{ secrets.FTP_GORILA_DEV_SERVER }}
+          username: ${{ secrets.FTP_GORILA_DEV_USERNAME }}
+          password: ${{ secrets.FTP_GORILA_DEV_PASSWORD }}
+          local-dir: ./src/Gorila.UI/dist/
