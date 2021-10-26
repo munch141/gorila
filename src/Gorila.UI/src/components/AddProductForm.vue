@@ -32,6 +32,8 @@
 </template>
 
 <script>
+import apiClient from '../services/apiClient';
+
 export default {
   data() {
     return {
@@ -40,7 +42,11 @@ export default {
   },
   methods: {
     async submitForm() {
+      await apiClient.addAsync(this.product);
+
       this.product = {};
+
+      this.$emit('product-added');
     },
   },
 };

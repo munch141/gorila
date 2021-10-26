@@ -1,22 +1,19 @@
 #See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
-FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
+FROM mcr.microsoft.com/dotnet/aspnet:6.0-alpine AS base
 WORKDIR /app
-EXPOSE 80
-EXPOSE 443
 
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
-WORKDIR /src
-COPY ["src/Gorila.API/Gorila.API.csproj", "src/Gorila.API/"]
-RUN dotnet restore "src/Gorila.API/Gorila.API.csproj"
-COPY . .
-WORKDIR "/src/src/Gorila.API"
-RUN dotnet build "Gorila.API.csproj" -c Release -o /app/build
+FROM mcr.microsoft.com/dotnet/sdk:6.0-alpine AS build
+COPY ["Gorila.API.csproj", "src/"]
+RUN dotnet restore "src/Gorila.API.csproj"
+COPY . ./src
+RUN dotnet build "src/Gorila.API.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Gorila.API.csproj" -c Release -o /app/publish
+RUN dotnet publish "src/Gorila.API.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Gorila.API.dll"]
+# ENTRYPOINT ["dotnet", "Gorila.API.dll"]
+CMD ASPNETCORE_URLS=http://*:$PORT dotnet Gorila.API.dll

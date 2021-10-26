@@ -1,4 +1,4 @@
-name: Deploy frontend to Hostinger
+name: Deploy to dev environment
 
 on:
   push:
@@ -8,14 +8,23 @@ on:
 
 jobs:
   deploy-frontend:
-    name: Build and deploy
+    name: Build and deploy frontend
+    runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: src/Gorila.UI
-    runs-on: ubuntu-latest
     steps:
       - name: 🚚 Get code
         uses: actions/checkout@v2
+
+      - name: 📝 Replace .env tokens
+        uses: cschleiden/replace-tokens@v1
+        with:
+          tokenPrefix: '__'
+          tokenSuffix: '__'
+          files: 'src/Gorila.UI/.env'
+        env:
+          API_URL: https://gorila-be.herokuapp.com
 
       - name: 🔨 Build
         run: |
@@ -29,3 +38,31 @@ jobs:
           username: ${{ secrets.FTP_GORILA_DEV_USERNAME }}
           password: ${{ secrets.FTP_GORILA_DEV_PASSWORD }}
           local-dir: ./src/Gorila.UI/dist/
+
+  deploy-backend:
+    name: Build and deploy backend
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: src/Gorila.API
+    steps:
+      - name: 🚚 Get code
+        uses: actions/checkout@v2
+
+      - name: 📝 Replace appsettings tokens
+        uses: cschleiden/replace-tokens@v1
+        with:
+          tokenPrefix: '__'
+          tokenSuffix: '__'
+          files: 'src/Gorila.API/appsettings.json'
+        env:
+          CONNECTION_STRING: ${{ secrets.HEROKU_POSTGRES_CONNECTION_STRING }}
+
+      - name: 🐳 Deploy to Heroku
+        uses: AkhileshNS/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_email: ${{ secrets.HEROKU_EMAIL }}
+          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
+          usedocker: true
+          appdir: 'src/Gorila.API'

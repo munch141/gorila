@@ -32,10 +32,6 @@ input[type='number'] {
       focus:ring
       focus:border-blue-400;
   }
-
-  body {
-    @apply bg-gray-300;
-  }
 }
 
 @layer components {

@@ -3,25 +3,28 @@
     <div class="flex w-full h-full items-center justify-center">Cargando...</div>
   </div>
   <div v-else class="products-grid justify-items-center">
-    <Card :bgColor="'bg-gray-100'">
-      <AddProductForm></AddProductForm>
-    </Card>
+    <BaseCard :bgColor="'bg-gray-100'">
+      <AddProductForm @product-added="refreshList"></AddProductForm>
+    </BaseCard>
     <ProductCard
       v-for="product in products"
       :key="product.id"
       :product="product"
       :enableDelete="enableDelete"
+      @product-deleted="deleteProduct"
     ></ProductCard>
   </div>
 </template>
 
 <script>
 import AddProductForm from './AddProductForm.vue';
-import Card from './Card.vue';
+import BaseCard from './BaseCard.vue';
 import ProductCard from './ProductCard.vue';
 
+import apiClient from '../services/apiClient';
+
 export default {
-  components: { AddProductForm, Card, ProductCard },
+  components: { AddProductForm, BaseCard, ProductCard },
   props: {
     enableDelete: {
       type: Boolean,
@@ -37,10 +40,23 @@ export default {
   async mounted() {
     const timer = setTimeout(() => {
       this.isLoading = true;
-    }, 200);
+    }, 500);
+
+    this.products = await apiClient.getAll();
 
     clearTimeout(timer);
     this.isLoading = false;
+  },
+  methods: {
+    async deleteProduct(productId) {
+      await apiClient.delete(productId);
+
+      await this.refreshList();
+    },
+
+    async refreshList() {
+      this.products = await apiClient.getAll();
+    },
   },
 };
 </script>
