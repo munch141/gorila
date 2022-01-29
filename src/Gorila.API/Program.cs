@@ -1,11 +1,12 @@
 using gorila.API.Persistence;
+using Gorila.API.Filters;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+#region Add services to the container.
 
 if (builder.Configuration.GetValue<bool>("UseInMemoryDatabase"))
 {
@@ -23,15 +24,45 @@ else
 
 builder.Services.AddHealthChecks().AddDbContextCheck<ApplicationDbContext>();
 builder.Services.AddControllers();
-builder.Services.AddControllers();
-builder.Services.AddSwaggerGen(c => {
+builder.Services.AddRouting(options => { options.LowercaseUrls = true; });
+builder.Services.AddSwaggerGen(c =>
+{
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "gorila API", Version = "v1" });
+    c.OperationFilter<FileUploadOperationFilter>();
 });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.Configure<ApiBehaviorOptions>(options =>
 {
     options.SuppressModelStateInvalidFilter = true;
 });
+
+const string localCors = "_localCors";
+const string devCors = "_devCors";
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(
+        name: devCors,
+        builder =>
+        {
+            builder.WithOrigins("https://latiendadelgorila.dev");
+            builder.AllowAnyHeader();
+            builder.AllowAnyMethod();
+        }
+    );
+    
+    options.AddPolicy(
+        name: localCors,
+        builder =>
+        {
+            builder.WithOrigins("http://localhost:8081");
+            builder.AllowAnyHeader();
+            builder.AllowAnyMethod();
+        }
+    );
+});
+
+#endregion
 
 var app = builder.Build();
 
@@ -45,6 +76,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseRouting();
+app.UseCors(builder.Environment.IsDevelopment() ? localCors : devCors);
 app.MapControllers();
 
 using var scope = app.Services.CreateScope();

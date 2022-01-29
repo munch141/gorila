@@ -3,13 +3,13 @@
     "Docker Compose": {
       "commandName": "DockerCompose",
       "composeLaunchAction": "LaunchBrowser",
-      "composeLaunchServiceName": "gorila.api",
+      "composeLaunchServiceName": "api",
       "composeLaunchUrl": "{Scheme}://localhost:{ServicePort}/swagger",
       "commandVersion": "1.0",
       "serviceActions": {
         "db": "StartWithoutDebugging",
-        "gorila.api": "StartDebugging",
-        "gorila.ui": "StartWithoutDebugging"
+        "ui": "StartWithoutDebugging",
+        "api": "StartDebugging"
       }
     }
   }

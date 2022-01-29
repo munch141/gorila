@@ -6,7 +6,7 @@
     <ProjectGuid>ffca2e62-cad5-4bc6-8963-8e6fce7092c5</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
-    <DockerServiceName>gorila.api</DockerServiceName>
+    <DockerServiceName>api</DockerServiceName>
     <DockerComposeProjectsToIgnore>src\Gorila.UI\Gorila.UI.njsproj</DockerComposeProjectsToIgnore>
   </PropertyGroup>
   <ItemGroup>

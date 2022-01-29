@@ -8,6 +8,10 @@ namespace gorila.API.Persistence.EntityConfigurations {
             builder.ToTable(nameof(Product));
 
             builder.HasKey(product => product.Id);
+
+            builder.Property(product => product.Name).IsRequired();
+            builder.Property(product => product.Description).IsRequired();
+            builder.Property(product => product.Price).IsRequired();
         }
     }
 }

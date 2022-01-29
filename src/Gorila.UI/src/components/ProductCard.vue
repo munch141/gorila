@@ -1,5 +1,5 @@
 <template>
-  <Card>
+  <BaseCard>
     <button
       v-if="enableDelete"
       class="
@@ -17,8 +17,8 @@
         justify-center
         focus:outline-none
         opacity-0
-        "
-      @click="deleteProduct({ productId: product.id })"
+      "
+      @click="deleteProduct"
     >
       &#10005;
     </button>
@@ -33,14 +33,14 @@
       <p class="cursor-default">{{ product.description }}</p>
       <b class="mt-auto cursor-default">${{ product.price }}</b>
     </div>
-  </Card>
+  </BaseCard>
 </template>
 
 <script>
-import Card from './Card.vue';
+import BaseCard from './BaseCard.vue';
 
 export default {
-  components: { Card },
+  components: { BaseCard },
   props: {
     product: {
       type: Object,
@@ -49,6 +49,11 @@ export default {
     enableDelete: {
       type: Boolean,
       default: false,
+    },
+  },
+  methods: {
+    deleteProduct() {
+      this.$emit('product-deleted', this.product.id);
     },
   },
 };
