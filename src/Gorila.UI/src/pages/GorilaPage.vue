@@ -1,13 +1,13 @@
 <template>
   <section class="container p-6">
-    <ProductsGrid :enableDelete="true"></ProductsGrid>
+    <UploadFile></UploadFile>
   </section>
 </template>
 
 <script>
-import ProductsGrid from '../components/ProductsGrid.vue';
+import UploadFile from '../components/UploadFile.vue';
 
 export default {
-  components: { ProductsGrid },
+  components: { UploadFile },
 };
 </script>

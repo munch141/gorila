@@ -1,14 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import GorilaPage from '../pages/GorilaPage.vue';
 import LoginPage from '../pages/LoginPage.vue';
-import InventoryPage from '../pages/InventoryPage.vue';
+import ProductsPage from '../pages/ProductsPage.vue';
 
 const router = createRouter({
   history: createWebHistory(),
   routes: [
-    { path: '/', component: GorilaPage, meta: { requiresAuth: true } },
+    { path: '/', component: GorilaPage },
     { path: '/login', component: LoginPage },
-    { path: '/inventory', component: InventoryPage },
+    { path: '/inventory', component: ProductsPage },
   ],
 });
 
