@@ -11,7 +11,8 @@
     "axios": "^0.24.0",
     "core-js": "^3.6.5",
     "vue": "^3.0.0",
-    "vue-router": "^4.0.0-0"
+    "vue-router": "^4.0.0-0",
+    "xlsx": "^0.17.5"
   },
   "devDependencies": {
     "@tailwindcss/postcss7-compat": "^2.0.4",
