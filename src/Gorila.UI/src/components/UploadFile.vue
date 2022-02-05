@@ -8,7 +8,7 @@
       </label>
       <button
         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        v-on:click="copyToClipboard">copiar</button>
+        v-on:click="copyToClipboard">copiar 📋</button>
     </div>
     <div>
       <p><pre v-if="categories">{{ templateText }}</pre></p>
