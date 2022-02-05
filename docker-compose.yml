@@ -42,3 +42,11 @@ services:
       - /app/node_modules
     environment:
       - CHOKIDAR_USEPOLLING=true
+
+  functions:
+    image: gorilafunctions
+    build:
+      context: .
+      dockerfile: src/Gorila.FunctionApp/Dockerfile
+    ports:
+      - '8080:80'

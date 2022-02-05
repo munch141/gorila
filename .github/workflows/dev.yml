@@ -3,8 +3,6 @@ name: Deploy to dev environment
 on:
   push:
     branches: [dev]
-  pull_request:
-    branches: [dev]
 
 jobs:
   deploy-frontend:
@@ -25,6 +23,8 @@ jobs:
           files: 'src/Gorila.UI/.env'
         env:
           API_URL: https://gorila-be.herokuapp.com
+          FUNCTION_APP_URL: http://gorila.azurewebsites.net
+          FUNCTION_APP_KEY: ${{ secrets.AZURE_FUNCTIONAPP_KEY }}
 
       - name: 🔨 Build
         run: |
@@ -39,30 +39,33 @@ jobs:
           password: ${{ secrets.FTP_GORILA_DEV_PASSWORD }}
           local-dir: ./src/Gorila.UI/dist/
 
-  deploy-backend:
-    name: Build and deploy backend
+  deploy-function-app:
+    name: Build and deploy Azure Function App ⚡
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: src/Gorila.API
+        working-directory: src/Gorila.FunctionApp
+    env:
+      AZURE_FUNCTIONAPP_NAME: gorila
+      AZURE_FUNCTIONAPP_PACKAGE_PATH: 'src/Gorila.FunctionApp'
+      DOTNET_VERSION: '6.0'
     steps:
       - name: 🚚 Get code
         uses: actions/checkout@v2
 
-      - name: 📝 Replace appsettings tokens
-        uses: cschleiden/replace-tokens@v1
+      - name: 🤖 Setup DotNet ${{ env.DOTNET_VERSION }} Environment
+        uses: actions/setup-dotnet@v1
         with:
-          tokenPrefix: '__'
-          tokenSuffix: '__'
-          files: 'src/Gorila.API/appsettings.json'
-        env:
-          CONNECTION_STRING: ${{ secrets.HEROKU_POSTGRES_CONNECTION_STRING }}
+          dotnet-version: ${{ env.DOTNET_VERSION }}
 
-      - name: 🐳 Deploy to Heroku
-        uses: AkhileshNS/heroku-deploy@v3.12.12
+      - name: Resolve Project Dependencies Using Dotnet
+        shell: bash
+        run: dotnet build --configuration Release --output ./output
+
+      - name: Run Azure Functions Action
+        uses: Azure/functions-action@v1
+        id: fa
         with:
-          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-          heroku_email: ${{ secrets.HEROKU_EMAIL }}
-          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
-          usedocker: true
-          appdir: 'src/Gorila.API'
+          app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
+          package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
+          publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
