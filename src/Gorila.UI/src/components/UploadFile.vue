@@ -41,15 +41,15 @@ const months = {
   11: 'Dic',
 };
 
-const daysOfWeek = {
-  0: 'Domingo',
-  1: 'Lunes',
-  2: 'Martes',
-  3: 'Miércoles',
-  4: 'Jueves',
-  5: 'Viernes',
-  6: 'Sábado',
-};
+// const daysOfWeek = {
+//   0: 'Domingo',
+//   1: 'Lunes',
+//   2: 'Martes',
+//   3: 'Miércoles',
+//   4: 'Jueves',
+//   5: 'Viernes',
+//   6: 'Sábado',
+// };
 
 const cellAddress = (column, row) => `${column}${row}`;
 
@@ -59,20 +59,20 @@ function templateHeader() {
   return `*LISTA ${today.getDate()} ${months[today.getMonth()]}* 🦍`;
 }
 
-function templateSpecials() {
-  const today = new Date();
-  const date = `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`;
+// function templateSpecials() {
+//   const today = new Date();
+//   const date = `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`;
 
-  return `Especial bajo pedido para el ${daysOfWeek[today.getDay()]} ${date}.
-Recibimos pedidos hasta el sábado 27, 1:00 pm
+//   return `Especial bajo pedido para el ${daysOfWeek[today.getDay()]} ${date}.
+// Recibimos pedidos hasta el sábado 27, 1:00 pm
 
-Ensalada César $6
+// Ensalada César $6
 
-Quiche camarones y ajoporros 20 cm $11
+// Quiche camarones y ajoporros 20 cm $11
 
-Entrecott con salsa champiñones, arroz salteado pasas y soya, espárragos asados.
-Porción individual $9`;
-}
+// Entrecott con salsa champiñones, arroz salteado pasas y soya, espárragos asados.
+// Porción individual $9`;
+// }
 
 const templateFooter = `_____________
 💲Aceptamos efectivo, transferencias Mercantil y Venezolano de Crédito, pago móvil, Zelle, PayPal y Pipol Pay.
@@ -150,7 +150,6 @@ export default {
       }
 
       this.templateText = `${templateHeader()}
-${templateSpecials()}
 ${this.categoriesTemplate()}
 ${templateFooter}
 `;
@@ -176,7 +175,7 @@ ${this.productTemplate(product)}`,
 `;
     },
     productTemplate(product) {
-      return `~${product.name} ${product.price} - disponibles: ${product.quantity}`;
+      return `~ ${product.name} ${product.price} - disponibles: ${product.quantity}`;
     },
   },
 };
