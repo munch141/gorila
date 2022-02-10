@@ -1,0 +1,42 @@
+name: Build and test app
+
+on:
+  pull_request:
+    branches: [dev]
+
+jobs:
+  deploy-frontend:
+    name: Build frontend
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: src/Gorila.UI
+    steps:
+      - name: 🚚 Get code
+        uses: actions/checkout@v2
+
+      - name: 🔨 Build
+        run: |
+          npm install
+          npm run build
+
+  deploy-backend:
+    name: Build backend
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: src/Gorila.API
+    steps:
+      - name: 🚚 Get code
+        uses: actions/checkout@v2
+
+      - name: 🤖 Setup .NET Core SDK 6
+        uses: actions/setup-dotnet@v1.7.2
+        with:
+          dotnet-version: '6.0'
+
+      - name: 🔧 Install dependencies
+        run: dotnet restore
+
+      - name: 🔨 Build
+        run: dotnet build --configuration Release --no-restore
