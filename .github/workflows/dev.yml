@@ -24,6 +24,7 @@ jobs:
         env:
           API_URL: https://gorila-be.herokuapp.com
           FUNCTION_APP_URL: http://gorila.azurewebsites.net
+          FUNCTION_APP_KEY: ${{ secrets.AZURE_FUNCTIONAPP_KEY }}
 
       - name: 🔨 Build
         run: |

@@ -28,7 +28,19 @@ export default {
   },
 
   async parseTiptapDocAsync(json) {
-    const result = await axios.post(`${process.env.VUE_APP_FUNCTION_APP_URL}/api/ParseDoc`, json);
+    const config = {};
+
+    if (process.env.VUE_APP_FUNCTION_APP_KEY) {
+      config.headers = {
+        'x-functions-key': process.env.VUE_APP_FUNCTION_APP_KEY,
+      };
+    }
+
+    const result = await axios.post(
+      `${process.env.VUE_APP_FUNCTION_APP_URL}/api/ParseDoc`,
+      json,
+      config,
+    );
 
     return result.data;
   },

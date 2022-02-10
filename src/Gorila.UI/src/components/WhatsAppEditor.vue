@@ -56,8 +56,8 @@ export default {
     async copyToClipboard() {
       try {
         const json = this.editor.getJSON();
-        console.log(json);
         const result = await apiClient.parseTiptapDocAsync(json);
+
         await navigator.clipboard.writeText(result);
       } catch ($e) {
         alert('No se pudo copiar');
