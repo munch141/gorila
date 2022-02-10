@@ -37,7 +37,7 @@ const cellAddress = (column, row) => `${column}${row}`;
 function templateHeader() {
   const today = new Date();
 
-  return `*LISTA ${today.getDate()} ${months[today.getMonth()]}* 🦍`;
+  return `<p><strong>LISTA ${today.getDate()} ${months[today.getMonth()]}</strong> 🦍</p>`;
 }
 
 // function templateSpecials() {
@@ -55,22 +55,23 @@ function templateHeader() {
 // Porción individual $9`;
 // }
 
-const templateFooter = `_____________
-💲Aceptamos efectivo, transferencias Mercantil y Venezolano de Crédito, pago móvil, Zelle, PayPal y Pipol Pay.
-
-*Pick-up: Las Marías, El Hatillo*
-
-🛵 *DELIVERY:*
-Municipio El Hatillo: $3
-Baruta: $3
-Sucre y Chacao: $3
-Pedidos mayores a $40: delivery gratis.
-Favor consultar para otras zonas.
-
-*LA TIENDA DEL GORILA* 🦍
-*Eugenio Münch*
-WhatsApp: +584120260422
-IG: @latiendadelgorila`;
+const templateFooter = `<p></p>
+<p>____________________________</p>
+<p>💲Aceptamos efectivo, transferencias Mercantil y Venezolano de Crédito, pago móvil, Zelle, PayPal y Pipol Pay.</p>
+<p></p>
+<p>Pick-up: Las Marías, El Hatillo</p>
+<p></p>
+<p>🛵 <strong>DELIVERY:</strong></p>
+<p>Municipio El Hatillo: $3</p>
+<p>Baruta: $3</p>
+<p>Sucre y Chacao: $3</p>
+<p>Pedidos mayores a $40: delivery gratis.</p>
+<p>Favor consultar para otras zonas.</p>
+<p></p>
+<p><strong>LA TIENDA DEL GORILA</strong> 🦍</p>
+<p><strong>Eugenio Münch</strong></p>
+<p>WhatsApp: +584120260422</p>
+<p>IG: @latiendadelgorila</p>`;
 
 function getProduct(row, sheet) {
   const nameCell = sheet[cellAddress(NAME_COLUMN, row)];
@@ -120,31 +121,22 @@ function productTemplate(product) {
 }
 
 function categoryTemplate(category, products) {
-  let text = `*${category}*`;
+  let text = `<p><strong>${category}</strong></p>`;
 
-  text += products.reduce(
-    (acc, product) => `${acc}
-${productTemplate(product)}`,
-    '',
-  );
+  text += products.reduce((acc, product) => `${acc}<p>${productTemplate(product)}</p>`, '');
 
-  return `${text}
-`;
+  return `${text}`;
 }
 
 function getTemplateFromCategories(categories) {
   const entries = Object.entries(categories);
 
   const categoriesTemplate = entries.reduce(
-    (acc, [category, products]) => `${acc}
-${categoryTemplate(category, products)}`,
+    (acc, [category, products]) => `${acc}<p>${categoryTemplate(category, products)}</p>`,
     '',
   );
 
-  return `${templateHeader()}
-${categoriesTemplate}
-${templateFooter}
-`;
+  return `${templateHeader()}${categoriesTemplate}${templateFooter}`;
 }
 
 export default { getCategoriesFromFile, getTemplateFromCategories };

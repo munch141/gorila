@@ -26,4 +26,10 @@ export default {
 
     return result.data;
   },
+
+  async parseTiptapDocAsync(json) {
+    const result = await axios.post(`${process.env.VUE_APP_FUNCTION_APP_URL}/api/ParseDoc`, json);
+
+    return result.data;
+  },
 };
