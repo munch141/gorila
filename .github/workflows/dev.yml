@@ -47,7 +47,7 @@ jobs:
         working-directory: src/Gorila.FunctionApp
     env:
       AZURE_FUNCTIONAPP_NAME: gorila
-      AZURE_FUNCTIONAPP_PACKAGE_PATH: '.'
+      AZURE_FUNCTIONAPP_PACKAGE_PATH: 'src/Gorila.FunctionApp'
       DOTNET_VERSION: '6.0'
     steps:
       - name: 🚚 Get code
