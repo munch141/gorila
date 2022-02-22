@@ -5,12 +5,12 @@ on:
     branches: [dev]
 
 jobs:
-  deploy-frontend:
+  build-frontend:
     name: Build frontend
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: src/Gorila.UI
+        working-directory: src/ui
     steps:
       - name: 🚚 Get code
         uses: actions/checkout@v2
@@ -20,20 +20,24 @@ jobs:
           npm install
           npm run build
 
-  deploy-backend:
-    name: Build backend
+  build-function-app:
+    name: Build function app
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: src/Gorila.API
+        working-directory: src/function-app
+    env:
+      AZURE_FUNCTIONAPP_NAME: gorila
+      AZURE_FUNCTIONAPP_PACKAGE_PATH: 'src/function-app'
+      DOTNET_VERSION: '6.0'
     steps:
       - name: 🚚 Get code
         uses: actions/checkout@v2
 
-      - name: 🤖 Setup .NET Core SDK 6
-        uses: actions/setup-dotnet@v1.7.2
+      - name: 🤖 Setup .NET ${{ env.DOTNET_VERSION }} Environment
+        uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: '6.0'
+          dotnet-version: ${{ env.DOTNET_VERSION }}
 
       - name: 🔧 Install dependencies
         run: dotnet restore

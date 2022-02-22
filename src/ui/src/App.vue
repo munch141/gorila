@@ -9,10 +9,5 @@ import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'App',
-  watch: {
-    user(currentValue) {
-      if (!currentValue) this.$router.replace('/login');
-    },
-  },
 });
 </script>
