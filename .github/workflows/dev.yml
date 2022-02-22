@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: src/Gorila.UI
+        working-directory: src/ui
     steps:
       - name: 🚚 Get code
         uses: actions/checkout@v2
@@ -20,7 +20,7 @@ jobs:
         with:
           tokenPrefix: '__'
           tokenSuffix: '__'
-          files: 'src/Gorila.UI/.env'
+          files: 'src/ui/.env'
         env:
           API_URL: https://gorila-be.herokuapp.com
           FUNCTION_APP_URL: http://gorila.azurewebsites.net
@@ -37,23 +37,23 @@ jobs:
           server: ${{ secrets.FTP_GORILA_DEV_SERVER }}
           username: ${{ secrets.FTP_GORILA_DEV_USERNAME }}
           password: ${{ secrets.FTP_GORILA_DEV_PASSWORD }}
-          local-dir: ./src/Gorila.UI/dist/
+          local-dir: ./src/ui/dist/
 
   deploy-function-app:
     name: Build and deploy Azure Function App ⚡
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: src/Gorila.FunctionApp
+        working-directory: src/function-app
     env:
       AZURE_FUNCTIONAPP_NAME: gorila
-      AZURE_FUNCTIONAPP_PACKAGE_PATH: 'src/Gorila.FunctionApp'
+      AZURE_FUNCTIONAPP_PACKAGE_PATH: 'src/function-app'
       DOTNET_VERSION: '6.0'
     steps:
       - name: 🚚 Get code
         uses: actions/checkout@v2
 
-      - name: 🤖 Setup DotNet ${{ env.DOTNET_VERSION }} Environment
+      - name: 🤖 Setup .NET ${{ env.DOTNET_VERSION }} Environment
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}

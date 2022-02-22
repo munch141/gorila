@@ -61,7 +61,7 @@ export default {
         await navigator.clipboard.writeText(result);
       } catch ($e) {
         alert('No se pudo copiar');
-        console.log($e);
+        console.error($e);
       }
     },
   },
